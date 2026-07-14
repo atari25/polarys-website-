@@ -8,6 +8,8 @@
 <style>
 /* ===== Polarys — shared styles v3 ===== */
 
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap');
+
 :root {
   --bg: #0D0F14;
   --surface: #171A22;
@@ -23,7 +25,7 @@
   --muted-2: #565C70;
   --danger: #E5484D;
 
-  --display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+  --display: 'Sora', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
   --body: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
   --mono: ui-monospace, 'SF Mono', 'Menlo', 'Consolas', monospace;
 
@@ -516,9 +518,9 @@ footer { border-top: 1px solid var(--border-soft); padding: 44px 0; }
 <header class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <span class="eyebrow">Developed by Anay Shah — an Iowa State student</span>
-      <h1>The <span class="amber">five minutes</span><br>after last call<br><span class="thin">matter most.</span></h1>
-      <p class="lede">Polarys quietly tracks your time at the bar. The moment you leave, it puts every safe way home — Uber, Lyft, a friend, transit — right in front of you. No lectures. Just options, right when the decision is hardest.</p>
+      <span class="eyebrow">Made by Anay Shah, a student at Iowa State</span>
+      <h1>The night gets blurry.<br><span class="amber">We don't.</span></h1>
+      <p class="lede">Polarys keeps track of how long you've been at the bar so you don't have to think about it. When you leave, it puts Uber, Lyft, a friend, or the bus in front of you, whatever's actually realistic that night. It's not trying to lecture anyone. It just tries to make the easy option the obvious one.</p>
       <div class="hero-ctas">
         <a href="#waitlist" class="btn-primary">Join the beta</a>
         <a href="#how-it-works" class="btn-secondary">See how it works →</a>
@@ -544,17 +546,17 @@ footer { border-top: 1px solid var(--border-soft); padding: 44px 0; }
   <div class="wrap">
     <div class="tstat"><span class="corner"></span>
       <span class="num">54%</span>
-      <p class="label">of drunk-driving trips originate at a bar, restaurant, or licensed venue — more than any other location.</p>
+      <p class="label">of drunk driving trips start at a bar, restaurant, or some other licensed venue. More than anywhere else, by a lot.</p>
       <span class="src">SRC — NIAAA epidemiology review</span>
     </div>
     <div class="tstat"><span class="corner"></span>
       <span class="num">1 / 44</span>
-      <p class="label">a person dies in an alcohol-impaired crash somewhere in the U.S. every 44 minutes.</p>
+      <p class="label">someone dies in an alcohol-impaired crash in the U.S. roughly every 44 minutes.</p>
       <span class="src">SRC — NHTSA, 2024</span>
     </div>
     <div class="tstat"><span class="corner"></span>
       <span class="num">0.5 pts</span>
-      <p class="label">per minute is all it takes for Polarys to notice you've been at a venue long enough to check in.</p>
+      <p class="label">a minute is really all it takes for Polarys to notice you've been somewhere long enough to check in.</p>
       <span class="src">SRC — Polarys risk model</span>
     </div>
   </div>
@@ -565,31 +567,31 @@ footer { border-top: 1px solid var(--border-soft); padding: 44px 0; }
     <div class="section-head reveal">
       <span class="eyebrow">How it works</span>
       <h2>Four questions. One tap. That's it.</h2>
-      <p>When you cross out of a bar's geofence, Polarys walks you through a short check-in — quick enough to answer while you're still standing on the sidewalk.</p>
+      <p>When you walk out of a bar's geofence, Polarys walks you through a short check-in. Short enough that you can answer the whole thing while you're still standing on the sidewalk.</p>
     </div>
     <div class="flow reveal">
       <div class="flow-step">
         <span class="idx">01</span>
         <h3>Are you leaving?</h3>
-        <p>A quiet notification confirms you've stepped out of the venue. Say no, and Polarys goes right back to monitoring.</p>
+        <p>A quiet notification pops up confirming you've stepped out. Say no and Polarys just goes back to watching in the background.</p>
         <div class="chips"><span class="chip">geofence exit</span></div>
       </div>
       <div class="flow-step">
         <span class="idx">02</span>
         <h3>Getting home how?</h3>
-        <p>Driving, riding with a friend, or already have a sober ride. A sober ride ends the check-in immediately.</p>
+        <p>Driving, riding with a friend, or you've already got a sober ride lined up. Pick sober ride and the check-in ends right there.</p>
         <div class="chips"><span class="chip">driving</span><span class="chip">friend</span><span class="chip">sober ride</span></div>
       </div>
       <div class="flow-step">
         <span class="idx">03</span>
         <h3>How many drinks?</h3>
-        <p>A quick, private self-check. Zero drinks ends the flow right there — no further questions needed.</p>
+        <p>Just a quick, honest check with yourself. Say zero and that's it, no more questions after that.</p>
         <div class="chips"><span class="chip">0</span><span class="chip">1–3</span><span class="chip">3–5</span><span class="chip">5+</span></div>
       </div>
       <div class="flow-step danger">
         <span class="idx">04</span>
         <h3>Here's how to get home.</h3>
-        <p>One tap opens Uber, Lyft, transit, or a pre-written text to a friend. Connect to a car's Bluetooth mid-flow, and every option turns red.</p>
+        <p>One tap and you've got Uber, Lyft, transit, or a text already typed out for a friend. If your phone connects to a car's Bluetooth while you're on this screen, every option turns red.</p>
         <div class="chips"><span class="chip">uber</span><span class="chip">lyft</span><span class="chip warn">bluetooth warning</span></div>
       </div>
     </div>
@@ -619,9 +621,9 @@ footer { border-top: 1px solid var(--border-soft); padding: 44px 0; }
       <div class="bt-copy">
         <span class="eyebrow">Why Bluetooth matters</span>
         <h2>The one signal that changes everything.</h2>
-        <p>Polarys watches for a specific, deliberate signal: your phone <b>routing audio to a car's Bluetooth system</b> — the same handoff your phone makes the moment you're about to drive.</p>
-        <p>If that connection happens after you've left a venue Polarys has been tracking, it's treated as a <b>high risk of impaired driving</b> by default — your dashboard status escalates, and every option in your check-in turns red. The only thing that overrides this is you telling Polarys, earlier in the same check-in, that you've had <b>zero drinks</b> tonight.</p>
-        <p class="fine">Bluetooth audio routing is used as a proxy signal, not a certainty — Polarys can't measure actual impairment. It exists to make the decision harder to ignore, not to make it for you.</p>
+        <p>Polarys pays attention to one specific thing: whether your phone connects to a car's Bluetooth audio. That's basically the same handoff your phone makes right before you actually start driving, so it's a pretty reliable hint.</p>
+        <p>If that connection shows up after you've already left a bar Polarys was tracking, it assumes the worst by default. Your status jumps to <b>high risk</b> and every option on the check-in turns red. The only way around that is if you already told Polarys, earlier in that same check-in, that you had <b>zero drinks</b>.</p>
+        <p class="fine">To be clear, Polarys can't actually tell if you're impaired. Bluetooth connecting is just a strong hint, and the app leans on it so the decision is harder to ignore, not so it can make the decision for you.</p>
       </div>
     </div>
   </div>
@@ -632,7 +634,7 @@ footer { border-top: 1px solid var(--border-soft); padding: 44px 0; }
     <div class="section-head reveal">
       <span class="eyebrow">Your dashboard</span>
       <h2>Risk, without the number staring back at you.</h2>
-      <p>Your home screen shows a plain-language status — low, moderate, or high — never a raw score. Tap it, and you'll see exactly what went into that read: time at the venue, whether you've moved, and any Bluetooth connection.</p>
+      <p>Your home screen only ever shows low, moderate, or high. If you actually want to know why it says what it says, tap it and you'll get the breakdown: how long you were there, whether you've been moving, and if Bluetooth picked up a car.</p>
     </div>
     <div class="feature-grid reveal">
       <div class="feature-card">
@@ -664,12 +666,11 @@ footer { border-top: 1px solid var(--border-soft); padding: 44px 0; }
     <div class="cta-block reveal">
       <span class="eyebrow" style="justify-content:center;">Now in beta</span>
       <h2>Testing at Iowa State this semester.</h2>
-      <p>Polarys is currently in private beta with a small group of ISU students. Drop your email and we'll send you a TestFlight invite as spots open up.</p>
+      <p>Right now Polarys is only out to a small group of ISU students who are testing it. Drop your email below and I'll send a TestFlight invite as soon as a spot opens up.</p>
       <form class="waitlist-form" action="#" onsubmit="return false;">
         <input type="email" placeholder="you@iastate.edu" required>
         <button type="submit" class="btn-primary" style="border:none; cursor:pointer;">Request invite</button>
       </form>
-      <p class="waitlist-note">iOS only, for now. No spam — just a beta invite when it's ready.</p>
     </div>
   </div>
 </section>
