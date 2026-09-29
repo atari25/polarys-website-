@@ -556,14 +556,14 @@ footer { border-top: 1px solid var(--border-soft); padding: 44px 0; }
 <nav class="site-nav">
   <div class="nav-inner">
     <a href="index.html" class="logo">pol<span>arys</span></a>
-    <div class="nav-status"><span class="dot"></span>beta live · ames, ia</div>
+    <div class="nav-status"><span class="dot"></span>built in ames, ia</div>
     <div class="nav-links">
       <a href="index.html#how-it-works">How it works</a>
       <a href="index.html#why">Why it matters</a>
-      <a href="index.html#waitlist">Beta</a>
+      <a href="index.html#how-it-works">The app</a>
       <a href="privacy.html">Privacy</a>
     </div>
-    <a href="index.html#waitlist" class="nav-cta">Join the beta</a>
+    <a href="index.html#how-it-works" class="nav-cta">How it works</a>
   </div>
 </nav>
 
@@ -571,64 +571,37 @@ footer { border-top: 1px solid var(--border-soft); padding: 44px 0; }
   <div class="wrap">
     <span class="eyebrow">Legal</span>
     <h1>Privacy Policy</h1>
-    <span class="legal-updated">Last updated: July 13, 2026</span>
+    <span class="legal-updated">Last updated: September 28, 2026</span>
   </div>
 </header>
 
 <section class="legal-body wrap">
 
-  <div class="callout">
-    <b>Plain-language summary:</b> The specific stuff from your check-ins, like which bar, how many drinks, how you got home, stays on your phone. We don't send any of it to our servers. The only thing we ever collect is anonymous counts, like how many check-ins happened this week across everyone using the app, and there's no way to trace that back to you.
-  </div>
-
-  <h2>1. Information we collect</h2>
-  <p>We separate what we collect into two categories, because they're treated very differently.</p>
-
-  <h2>1.1 Information that stays on your device</h2>
-  <p>The following data is stored locally on your phone only. It is never transmitted to, or stored on, any server we operate:</p>
+  <div class="callout"><b>The short version:</b> Polarys saves your settings and current night session on your phone. Drink answers aren’t saved. Some features send information to Google, Apple, or the ride service you choose, as explained below.</div>
+  <h2>1. What stays on your phone</h2>
+  <p>The current app uses local storage for your home address and coordinates, places you save, cached venue coordinates, current night session and timing, saved car selection, and the most recent ride-option choice. It does not keep a continuous GPS route history. Drink answers only move you through the check-in; they are not recorded.</p>
+  <p>There is no Polarys account or app backend receiving these records. The current app does not send product-analytics events to a Polarys analytics service.</p>
+  <h2>2. Location and car detection</h2>
+  <p>Location is used to find venues, monitor their boundaries, and check whether you have reached your saved home. Background reminders need Always location and Precise Location. Notifications need your permission too.</p>
+  <p>On iPhone, the car feature reads the active audio route and compares it with the car you saved. It does not scan all nearby Bluetooth devices. The app’s regular car checks run while its JavaScript is running; a user-configured Shortcut can also open a car check-in.</p>
+  <h2>3. Information sent to other services</h2>
   <ul>
-    <li><b>Venue check-in details</b>, like which bar you were at and when you got there or left.</li>
-    <li><b>Your answers during a safety check-in</b>: how you're getting home and how many drinks you've had.</li>
-    <li><b>Precise location history</b> tied to specific check-ins or timestamps.</li>
-    <li><b>The math behind your risk score</b>, basically the breakdown of why your status says low, moderate, or high.</li>
+    <li><b>Google Places:</b> nearby venue searches send location coordinates. Address search sends the text you enter and place-detail requests. Google handles these requests under its own policies.</li>
+    <li><b>Device location services:</b> address lookup and reverse geocoding can use your device’s location service.</li>
+    <li><b>Ride and map apps:</b> choosing Uber, Lyft, or transit can pass your pickup location or saved home destination to the service you open.</li>
+    <li><b>Text a friend:</b> Polarys opens a message draft containing your pickup location. You choose whether to send it.</li>
+    <li><b>This website:</b> the hosting provider processes requests to serve these pages. Fonts are loaded from Google Fonts. There is no beta signup form.</li>
   </ul>
-  <p class="muted">Because this information never leaves your device, we don't have access to it. We can't see it, and we couldn't hand it over even if someone asked, since it was never ours to begin with.</p>
-
-  <h2>1.2 Information we may collect in aggregate</h2>
-  <p>To understand how Polarys is used and to improve it, we may collect anonymous, aggregated usage statistics that cannot be traced back to an individual user, such as:</p>
-  <ul>
-    <li>Total number of safety check-ins completed across all users in a given period.</li>
-    <li>Overall counts of which transportation option was selected (e.g., rideshare vs. sober ride vs. driving), without any user identifier, venue, or timestamp attached.</li>
-    <li>General app usage metrics (crash reports, app opens) that do not include the sensitive check-in content described in 1.1.</li>
-  </ul>
-
-  <h2>2. Location and Bluetooth access</h2>
-  <p>Polarys requests background location access to detect when you arrive at or leave a bar or nightclub, and Bluetooth access to detect when your phone connects to a vehicle. Both are used solely to power the in-app safety check-in described above and to determine your risk status. Neither is used for advertising, sold to third parties, or shared with any outside company.</p>
-  <p>You can disable location or Bluetooth access at any time in your device settings. Doing so will limit Polarys's ability to detect when you've left a venue.</p>
-
-  <h2>3. What we don't do</h2>
-  <ul>
-    <li>We do not sell your data.</li>
-    <li>We do not share your check-in details, drink counts, or transportation choices with advertisers, insurers, employers, or any third party.</li>
-    <li>We do not use your data to build an advertising profile.</li>
-    <li>We do not track you across other apps or websites.</li>
-  </ul>
-
-  <h2>4. Data retention and deletion</h2>
-  <p>Locally stored check-in data remains on your device until you delete it yourself or uninstall the app. You can clear your local history at any time from within the app's settings. Aggregate, anonymized statistics we collect are retained only in a form that cannot be linked back to you, so there is no individual record to delete on our end.</p>
-
-  <h2>5. Children's privacy</h2>
-  <p>Polarys is not intended for use by anyone under the age of 17, consistent with its alcohol-related content. We do not knowingly collect information from users under this age.</p>
-
-  <h2>6. Changes to this policy</h2>
-  <p>If we make material changes to this policy, we'll update the "Last updated" date above and, where appropriate, notify users in-app.</p>
-
-  <h2>7. Contact us</h2>
-  <p>Questions about this policy or how Polarys handles data can be sent to <a href="mailto:hello@polarys.app" style="color:var(--amber);">hello@polarys.app</a>.</p>
-
-  <div class="callout">
-    This policy is written to accurately reflect Polarys's current data architecture (local-only storage for sensitive check-in data, aggregate-only server-side data). It has not yet been reviewed by an attorney. Before public launch, this should be reviewed by legal counsel familiar with mobile app privacy law and Apple App Store requirements.
-  </div>
+  <p>These services have their own privacy and retention policies. Polarys does not send your drink answer to them. If you email us, your message and email address reach our email provider.</p>
+  <h2>4. How long information stays</h2>
+  <p>Your saved home and cached venue locations have no automatic expiry. Saved party addresses stay until you remove them. The current night session resets when you reach home or when its rules expire, by 5 AM at the latest logically. The saved record is updated on the next app or background callback, so it can remain on disk longer while the app is inactive.</p>
+  <p>Remove saved places and your saved car using their controls in Settings. The app does not currently have a general “clear history” button. Deleting the app removes its local app data; device backups and restores are controlled by your device and account settings.</p>
+  <h2>5. Your choices</h2>
+  <p>You can change location and notification permissions in iPhone Settings. Turning them off limits automatic reminders. You can still open ride options yourself. We do not sell app data or use it for advertising profiles.</p>
+  <h2>6. Age and changes</h2>
+  <p>Polarys is intended for people age 17 and older. This is not permission to drink under the legal age. We will update this page if the app’s data practices change.</p>
+  <h2>7. Contact</h2>
+  <p>For privacy questions, email <a href="mailto:hello@polarys.app" style="color:var(--amber);">hello@polarys.app</a>.</p>
 
 </section>
 

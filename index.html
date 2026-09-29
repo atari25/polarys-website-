@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Polarys — Drive Safe. Make Better Decisions.</title>
-<meta name="description" content="Polarys quietly tracks your time at bars and helps you choose a safe ride home the moment you leave. Built at Iowa State.">
+<title>Polarys — Make a plan to get home.</title>
+<meta name="description" content="A ride reminder for nights out. Polarys watches bars and places you save, then helps you find a way home. Built by an Iowa State student.">
 <style>
 /* ===== Polarys — shared styles v3 ===== */
 
@@ -557,31 +557,31 @@ footer { border-top: 1px solid var(--border-soft); padding: 44px 0; }
 <nav class="site-nav">
   <div class="nav-inner">
     <a href="index.html" class="logo">pol<span>arys</span></a>
-    <div class="nav-status"><span class="dot"></span>beta live · ames, ia</div>
+    <div class="nav-status"><span class="dot"></span>built in ames, ia</div>
     <div class="nav-links">
       <a href="#how-it-works">How it works</a>
       <a href="#why">Why it matters</a>
-      <a href="#waitlist">Beta</a>
+      <a href="#saved-places">House parties</a>
       <a href="#about">About</a>
       <a href="privacy.html">Privacy</a>
     </div>
-    <a href="#waitlist" class="nav-cta">Join the beta</a>
+    <a href="#how-it-works" class="nav-cta">How it works</a>
   </div>
 </nav>
 
 <header class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <h1>The night gets blurry.<br><span class="amber">We don't.</span></h1>
-      <p class="lede">Polarys keeps track of how long you've been at the bar so you don't have to think about it. When you leave, it puts Uber, Lyft, a friend, or the bus in front of you, whatever's actually realistic that night. It's not trying to lecture anyone. It just tries to make the easy option the obvious one.</p>
+      <h1>Good night out.<br><span class="amber">Let’s get you home.</span></h1>
+      <p class="lede">It’s late, your friends are heading out, and nobody has a plan for getting home. Polarys gives you a reminder to figure that out. After 45 minutes or more at bars or places you’ve saved, leaving can bring up a check-in with Uber, Lyft, transit, or a text to a friend.</p>
       <div class="hero-ctas">
-        <a href="#waitlist" class="btn-primary">Join the beta</a>
-        <a href="#how-it-works" class="btn-secondary">See how it works →</a>
+        <a href="#how-it-works" class="btn-primary">See how it works</a>
+        <a href="#saved-places" class="btn-secondary">For house parties too →</a>
       </div>
       <div class="hero-proof">
-        <div><b>0.5 pts / min</b>background risk model</div>
-        <div><b>100m</b>geofence radius</div>
-        <div><b>4 taps</b>to a safe ride</div>
+        <div><b>9 PM–5 AM</b>nighttime monitoring</div>
+        <div><b>45+ minutes</b>before a departure reminder</div>
+        <div><b>Your places</b>bars and friends’ houses</div>
       </div>
     </div>
 
@@ -590,28 +590,16 @@ footer { border-top: 1px solid var(--border-soft); padding: 44px 0; }
       <div class="pulse-ring r2"></div>
       <div class="pulse-ring r3"></div>
       <div class="pulse-core"></div>
-      <div class="pulse-tag">exited geofence — <b>paddy's irish bar</b></div>
+      <div class="pulse-tag">heading out? <b>how are you getting home?</b></div>
     </div>
   </div>
 </header>
 
 <section class="stat-band reveal" id="why">
   <div class="wrap">
-    <div class="tstat"><span class="corner"></span>
-      <span class="num">54%</span>
-      <p class="label">of drunk driving trips start at a bar, restaurant, or some other licensed venue. More than anywhere else, by a lot.</p>
-      <span class="src">SRC — NIAAA epidemiology review</span>
-    </div>
-    <div class="tstat"><span class="corner"></span>
-      <span class="num">1 / 44</span>
-      <p class="label">someone dies in an alcohol-impaired crash in the U.S. roughly every 44 minutes.</p>
-      <span class="src">SRC — NHTSA, 2024</span>
-    </div>
-    <div class="tstat"><span class="corner"></span>
-      <span class="num">29%</span>
-      <p class="label">of drivers in fatal crashes who'd been drinking are 21 to 24. That's most of a college campus, not some far-off demographic.</p>
-      <span class="src">SRC — CDC, 2022 data</span>
-    </div>
+    <div class="tstat"><span class="corner"></span><span class="num">Before</span><p class="label">Save your home address and the places you go. Allow Always location, Precise Location, and notifications.</p><span class="src">a little setup before you head out</span></div>
+    <div class="tstat"><span class="corner"></span><span class="num">During</span><p class="label">Polarys watches for visits at night. Bars and saved party addresses count toward the same session.</p><span class="src">9 pm–5 am, local time</span></div>
+    <div class="tstat"><span class="corner"></span><span class="num">After</span><p class="label">Leaving after 45+ venue minutes can trigger a ride reminder. You can always open ride options yourself.</p><span class="src">have a plan before getting in the car</span></div>
   </div>
 </section>
 
@@ -619,96 +607,85 @@ footer { border-top: 1px solid var(--border-soft); padding: 44px 0; }
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">How it works</span>
-      <h2>Four questions. One tap. That's it.</h2>
-      <p>When you walk out of a bar's geofence, Polarys walks you through a short check-in. Short enough that you can answer the whole thing while you're still standing on the sidewalk.</p>
+      <h2>Heading out? Make a plan.</h2>
+      <p>Between 9 PM and 5 AM, Polarys counts time at monitored places. Once you’ve spent 45+ minutes there across the same night session, a detected departure can send a reminder. It doesn’t go off just because the timer hits 45 minutes.</p>
     </div>
     <div class="flow reveal">
       <div class="flow-step">
         <span class="idx">01</span>
-        <h3>Are you leaving?</h3>
-        <p>A quiet notification pops up confirming you've stepped out. Say no and Polarys just goes back to watching in the background.</p>
-        <div class="chips"><span class="chip">geofence exit</span></div>
+        <h3>A reminder when you leave</h3>
+        <p>“How are you getting home?” Tap the notification to open your options. There’s one departure reminder per night session, not another alert every time you walk past the door.</p>
+        <div class="chips"><span class="chip">after 45+ venue minutes</span></div>
       </div>
       <div class="flow-step">
         <span class="idx">02</span>
         <h3>Getting home how?</h3>
-        <p>Driving, riding with a friend, or you've already got a sober ride lined up. Pick sober ride and the check-in ends right there.</p>
+        <p>Planning to drive? There’s a quick check-in first. Looking for a ride? You can go straight to the options.</p>
         <div class="chips"><span class="chip">driving</span><span class="chip">friend</span><span class="chip">sober ride</span></div>
       </div>
       <div class="flow-step">
         <span class="idx">03</span>
         <h3>How many drinks?</h3>
-        <p>Just a quick, honest check with yourself. Say zero and that's it, no more questions after that.</p>
-        <div class="chips"><span class="chip">0</span><span class="chip">1–3</span><span class="chip">3–5</span><span class="chip">5+</span></div>
+        <p>If you were planning to drive, Polarys asks how much you’ve had. You can skip the answer. Every answer leads to ride options, and your answer isn’t saved.</p>
+        <div class="chips"><span class="chip">0</span><span class="chip">1–3</span><span class="chip">4–5</span><span class="chip">6+</span></div>
       </div>
       <div class="flow-step danger">
         <span class="idx">04</span>
         <h3>Here's how to get home.</h3>
-        <p>One tap and you've got Uber, Lyft, transit, or a text already typed out for a friend. If your phone connects to a car's Bluetooth while you're on this screen, every option turns red.</p>
-        <div class="chips"><span class="chip">uber</span><span class="chip">lyft</span><span class="chip warn">bluetooth warning</span></div>
+        <p>Open Uber or Lyft with your saved home as the destination, look up transit, or open a text to a friend with your pickup location. You still send the text or book the ride yourself.</p>
+        <div class="chips"><span class="chip">uber</span><span class="chip">lyft</span><span class="chip">text a friend</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="block" style="padding-top:0;">
-  <div class="wrap">
-    <div class="bt-explainer reveal">
-      <div class="bt-visual">
-        <div class="bt-step">
-          <span class="n">01</span> You exit a bar's geofence
-        </div>
-        <div class="bt-arrow">↓</div>
-        <div class="bt-step">
-          <span class="n">02</span> Your phone connects to a car's Bluetooth audio
-        </div>
-        <div class="bt-arrow">↓</div>
-        <div class="bt-step hit">
-          <span class="n">⚠</span> Treated as high risk of impaired driving
-        </div>
-        <div class="bt-arrow">unless →</div>
-        <div class="bt-step safe">
-          <span class="n">✓</span> You've told Polarys you had 0 drinks tonight
-        </div>
-      </div>
-      <div class="bt-copy">
-        <span class="eyebrow">Why Bluetooth matters</span>
-        <h2>The one signal that changes everything.</h2>
-        <p>Polarys pays attention to one specific thing: whether your phone connects to a car's Bluetooth audio. That's basically the same handoff your phone makes right before you actually start driving, so it's a pretty reliable hint.</p>
-        <p>If that connection shows up after you've already left a bar Polarys was tracking, it assumes the worst by default. Your status jumps to <b>high risk</b> and every option on the check-in turns red. The only way around that is if you already told Polarys, earlier in that same check-in, that you had <b>zero drinks</b>.</p>
-        <p class="fine">To be clear, Polarys can't actually tell if you're impaired. Bluetooth connecting is just a strong hint, and the app leans on it so the decision is harder to ignore, not so it can make the decision for you.</p>
-      </div>
+<section class="block" id="saved-places" style="padding-top:0;">
+  <div class="wrap"><div class="bt-explainer reveal">
+    <div class="bt-visual">
+      <div class="bt-step"><span class="n">01</span> Find the full address</div><div class="bt-arrow">↓</div>
+      <div class="bt-step"><span class="n">02</span> Give it a name you’ll recognize</div><div class="bt-arrow">↓</div>
+      <div class="bt-step hit"><span class="n">03</span> Get the same nighttime ride reminders</div>
     </div>
-  </div>
+    <div class="bt-copy"><span class="eyebrow">For house parties too</span><h2>“I do stupid stuff here.”</h2>
+      <p>You know that friend who always hosts? Save their address in Settings. Polarys can watch that place the same way it watches a bar.</p>
+      <p>Add up to 10 places, give them nicknames, and remove them whenever you want. The same 9 PM–5 AM window and 45-minute departure rule apply. Your saved home is separate: getting home ends your night.</p>
+      <p class="fine">Saved places stay on your phone until you remove them. Address lookup uses Google or your device’s location service.</p>
+    </div>
+  </div></div>
 </section>
+<section class="block" style="padding-top:0;"><div class="wrap"><div class="section-head reveal">
+  <span class="eyebrow">A heads-up about your car</span><h2>Another reminder before you go.</h2>
+  <p>You can save your car’s Bluetooth audio connection in Polarys. After 45+ venue minutes, a qualifying connection can bring up another check-in. The app checks the active audio connection while it’s running; it doesn’t scan every car nearby or know who’s driving. A car Shortcut can help open Polarys when the app is asleep.</p>
+  <p>Departure reminders don’t need Bluetooth. And choosing “0 drinks” doesn’t turn off the car check-in.</p>
+</div></div></section>
 
 <section class="block" style="padding-top:0;">
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Your dashboard</span>
-      <h2>Risk, without the number staring back at you.</h2>
-      <p>Your home screen only ever shows low, moderate, or high. If you actually want to know why it says what it says, tap it and you'll get the breakdown: how long you were there, whether you've been moving, and if Bluetooth picked up a car.</p>
+      <h2>A quick look at your night.</h2>
+      <p>The home screen shows your current venue and time spent there. Low, Medium, and High reflect venue time and a qualifying saved-car connection. They don’t measure alcohol or tell you whether you’re safe to drive. Time spent traveling doesn’t add points.</p>
     </div>
     <div class="feature-grid reveal">
       <div class="feature-card">
         <div class="ico">⚠️</div>
-        <h4>Safety alert</h4>
-        <p>Preview what your check-in will look like before it happens.</p>
+        <h4>Your own places</h4>
+        <p>Save a friend’s address and use the same departure reminders as bars.</p>
       </div>
       <div class="feature-card">
         <div class="ico">🕐</div>
         <h4>My options</h4>
-        <p>Every safe way home, one tap away, any time you need it.</p>
+        <p>Open the Ride tab whenever you need it. You don’t have to wait for a notification.</p>
       </div>
       <div class="feature-card">
         <div class="ico">📄</div>
         <h4>Got a DUI?</h4>
-        <p>Plain-language next steps if you or a friend needs them.</p>
+        <p>Find general next steps and links to help if you or a friend needs them.</p>
       </div>
       <div class="feature-card">
         <div class="ico">🏠</div>
         <h4>State laws</h4>
-        <p>DUI laws and penalties for Iowa, in plain English.</p>
+        <p>Find state-specific information and links to official sources. It isn’t legal advice.</p>
       </div>
     </div>
   </div>
@@ -725,30 +702,21 @@ footer { border-top: 1px solid var(--border-soft); padding: 44px 0; }
     <div class="about-copy">
       <span class="eyebrow">About</span>
       <h2>Hi, I'm Anay.</h2>
-      <p>I'm a student at Iowa State, and I built Polarys after watching one too many friends make a risky call at 2am. Not because they wanted to, but because in the moment, it just felt like the easiest option.</p>
-      <p>The name comes from Polaris, the North Star. It's the one point in the sky that stays put while everything else seems to move around it, the thing people have used for centuries to find their way home in the dark. That's the whole idea behind the app. A night out can get confusing fast, but Polarys is meant to be the one steady thing pointing you toward the safer option anyway.</p>
+      <p>I’m an Iowa State student building Polarys. The idea is pretty simple: getting home should be part of the plan, even when the rest of the night wasn’t planned at all.</p>
+      <p>The name comes from Polaris, the North Star. I liked the idea of something that helps you find your way home. I’m testing the iPhone app with friends and working through what’s useful on an actual night out.</p>
     </div>
   </div>
 </section>
 
-<section class="block" id="waitlist">
-
-  <div class="wrap">
-    <div class="cta-block reveal">
-      <span class="eyebrow" style="justify-content:center;">Now in beta</span>
-      <h2>Testing at Iowa State this semester.</h2>
-      <p>Right now Polarys is only out to a small group of ISU students who are testing it. Drop your email below and I'll send a TestFlight invite as soon as a spot opens up.</p>
-      <form class="waitlist-form" action="#" onsubmit="return false;">
-        <input type="email" placeholder="you@iastate.edu" required>
-        <button type="submit" class="btn-primary" style="border:none; cursor:pointer;">Request invite</button>
-      </form>
-    </div>
-  </div>
-</section>
+<section class="block" id="testing"><div class="wrap"><div class="cta-block reveal">
+  <span class="eyebrow" style="justify-content:center;">Still being tested</span><h2>Built for nights out. Still a work in progress.</h2>
+  <p>Polarys is currently being tested on iPhone. It isn’t available as a public App Store download yet.</p>
+  <p>Reminders depend on phone permissions, GPS, and iOS. They can arrive late or fail to arrive, so make a plan before you leave. Polarys can’t tell you whether you’re sober or safe to drive.</p>
+</div></div></section>
 
 <footer>
   <div class="wrap footer-inner">
-    <div class="footer-note">Built by students at Iowa State University. Not affiliated with or endorsed by ISU.</div>
+    <div class="footer-note">Built by an Iowa State student. Not affiliated with or endorsed by ISU.</div>
     <div class="footer-links">
       <a href="privacy.html">Privacy Policy</a>
       <a href="terms.html">Terms of Service</a>
