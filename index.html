@@ -555,6 +555,11 @@ footer { border-top: 1px solid var(--border-soft); padding: 44px 0; }
 .app-preview{margin:24px auto 0;max-width:290px;text-align:center}.app-preview img{width:100%;height:auto;display:block;border-radius:0;transform:none;box-shadow:none}.app-preview figcaption{font-size:11px;line-height:1.6;color:var(--muted);margin-top:14px}.hero-preview{max-width:310px;margin:0 auto}.screenshot-pair{display:grid;grid-template-columns:1fr 1fr;gap:48px}.screenshot-pair article{min-width:0;padding:28px;background:var(--surface);border:1px solid var(--border);border-radius:20px}.screenshot-pair h3{font-size:23px;margin:0 0 14px}.screenshot-pair p,.screenshot-note{color:var(--muted);line-height:1.7;font-size:15px}.screenshot-note{max-width:780px;margin:30px auto 0;text-align:center}.plain-screen{max-width:270px}.plain-screen img{border:0;border-radius:0;padding:0;background:none}.hero-grid{align-items:center}.nav-status{white-space:nowrap}
 @media(max-width:760px){.screenshot-pair{grid-template-columns:1fr;gap:24px}.screenshot-pair article{padding:24px}.hero-preview{margin-top:35px;max-width:280px}.nav-status{display:none}}
 
+
+/* Uniform phone cutouts: remove the baked-in pale canvas at the layout level. */
+.app-preview,.hero-preview,.plain-screen{width:min(100%,360px);max-width:360px;margin:28px auto 0}.phone-cut{position:relative;width:100%;aspect-ratio:0.48;overflow:hidden;border-radius:17% / 8%;isolation:isolate;background:transparent}.app-preview .phone-cut img{position:absolute;max-width:none;width:114%;height:119%;left:-7%;top:-8.5%;border-radius:0;object-fit:fill}.app-preview .native-phone img{width:100%;height:100%;left:0;top:0;object-fit:contain}.app-preview .lock-screen img{width:100%;height:100%;left:0;top:0;object-fit:cover}.lock-screen{border-radius:0}.screenshot-pair article{background:transparent;border:0;padding:20px 0}.screenshot-pair{gap:64px}.notification-journey{grid-template-columns:1fr 1fr;align-items:start}.notification-journey>article:first-child{grid-column:1;grid-row:1 / 3}.check-in-flow{grid-column:2;padding:20px 0 0}.check-in-flow h3{font-size:22px;margin:15px 0 12px}.check-in-flow p{color:var(--muted);font-size:14px;line-height:1.7}.answer-options{display:flex;flex-wrap:wrap;gap:9px;list-style:none;padding:0;margin:18px 0}.answer-options li{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:12px 16px;font-size:13px;color:var(--text)}.flow-down{display:block;color:var(--amber);font-size:30px;margin:20px 0}.answer-note{font-size:12px!important}.ride-connector{display:flex;flex-direction:column;align-items:center;color:var(--amber);gap:12px;margin:28px 0 0;font-size:13px}.ride-connector span:last-child{font-size:52px;line-height:1}.ride-result{grid-column:2}.final-beta-action{display:flex;justify-content:center;margin:8px 0 30px}.cta-block p:last-child{font-size:12px;line-height:1.7;max-width:65ch;margin-bottom:0}.cta-block .final-beta-action a{display:inline-flex;text-align:center;justify-content:center}.hero-preview{margin-top:0}
+@media(max-width:760px){.notification-journey{display:flex;flex-direction:column;gap:24px}.notification-journey>*{width:100%}.app-preview,.hero-preview,.plain-screen{width:min(100%,360px);max-width:360px}.hero-preview{margin-top:35px}.screenshot-pair{gap:36px}.cta-block{padding:40px 22px}.final-beta-action .btn-primary{width:100%;max-width:300px}}
+
 </style>
 </head>
 <body>
@@ -590,7 +595,7 @@ footer { border-top: 1px solid var(--border-soft); padding: 44px 0; }
       </div>
     </div>
 
-    <figure class="app-preview hero-preview"><img src="assets/home.png" alt="Polarys home screen showing venue time and the Get a safe ride button" fetchpriority="high"><figcaption>Your night’s venue time. Your ride options.</figcaption></figure>
+    <figure class="app-preview hero-preview"><div class="phone-cut framed-phone"><img src="assets/home.png" alt="Polarys home screen showing venue time and the Get a safe ride button" fetchpriority="high"></div><figcaption>Your night’s venue time. Your ride options.</figcaption></figure>
   </div>
 </header>
 
@@ -604,10 +609,10 @@ footer { border-top: 1px solid var(--border-soft); padding: 44px 0; }
 
 <section class="block" id="how-it-works"><div class="wrap">
 <div class="section-head"><span class="eyebrow">How it works</span><h2>Leaving? Figure out your ride.</h2><p>Here’s what Polarys does when you’re out.</p></div>
-<div class="screenshot-pair">
-<article><h3>A reminder when you leave</h3><p>After 45+ minutes at monitored places during the night, leaving can trigger “How are you getting home?” Tap it to check your options.</p><figure class="app-preview plain-screen"><img src="assets/reminder.png" alt="Polarys departure notification on an iPhone lock screen" loading="lazy"><figcaption>Lock screen screenshot. Unrelated notifications removed.</figcaption></figure></article>
-<article><h3>Pick how you’re getting home</h3><p>Open Uber or Lyft, check transit, or text a friend your pickup location. You can also open the Ride tab anytime.</p><figure class="app-preview"><img src="assets/ride.png" alt="Ride screen with Uber, Lyft, Public Transit and Text a Friend" loading="lazy"><figcaption>Ride options, with personal addresses removed.</figcaption></figure></article>
-</div><p class="screenshot-note">Planning to drive? The check-in asks how much you’ve had to drink. You can skip the question, and your answer isn’t saved. Ride options are available either way.</p>
+<div class="screenshot-pair notification-journey">
+<article><h3>A reminder when you leave</h3><p>After 45+ minutes at monitored places during the night, leaving can trigger “How are you getting home?” Tap it to check your options.</p><figure class="app-preview plain-screen"><div class="phone-cut lock-screen"><img src="assets/reminder.png" alt="Polarys departure notification on an iPhone lock screen" loading="lazy"></div><figcaption>Lock screen screenshot. Unrelated notifications removed.</figcaption></figure></article>
+<div class="check-in-flow"><span class="eyebrow">Tap the reminder</span><h3>How are you getting home?</h3><p>First, it asks whether you’re planning to drive or need a ride.</p><ul class="answer-options"><li>I was planning to drive</li><li>Find a ride home</li></ul><span class="flow-down" aria-hidden="true">↓</span><h3>How much have you had to drink?</h3><p>If you choose “I was planning to drive,” these are your options:</p><ul class="answer-options drinks"><li>0</li><li>1–3</li><li>4–5</li><li>6+</li><li>Prefer not to say</li></ul><p class="answer-note">Your answer isn’t saved. Every answer leads to ride options. Choose “Find a ride home” to go straight there.</p><div class="ride-connector"><span>Choose your ride</span><span aria-hidden="true">↓</span></div></div><article class="ride-result"><h3>Pick how you’re getting home</h3><p>Open Uber or Lyft, check transit, or text a friend your pickup location. You can also open the Ride tab anytime.</p><figure class="app-preview"><div class="phone-cut framed-phone"><img src="assets/ride.png" alt="Ride screen with Uber, Lyft, Public Transit and Text a Friend" loading="lazy"></div><figcaption>Ride options, with personal addresses removed.</figcaption></figure></article>
+</div>
 </div></section>
 <section class="block" id="saved-places" style="padding-top:0;">
   <div class="wrap"><div class="bt-explainer reveal">
@@ -662,8 +667,8 @@ footer { border-top: 1px solid var(--border-soft); padding: 44px 0; }
 </section>
 
 <section class="block"><div class="wrap"><div class="section-head"><span class="eyebrow">Inside the app</span><h2>Set it up. See what’s going on.</h2></div><div class="screenshot-pair">
-<article><h3>Location and car reminders</h3><p>Manage departure reminders in Settings. Add a car Shortcut if you want Polarys to open when your car connects.</p><figure class="app-preview"><img src="assets/settings.png" loading="lazy" alt="Settings screen with departure reminders and car Shortcut setup"></figure></article>
-<article><h3>Game days and plans around campus</h3><p>The Socials tab lists Iowa State games and other occasions, with a link to find a ride.</p><figure class="app-preview"><img src="assets/socials.png" loading="lazy" alt="Socials screen showing the Iowa State game schedule"></figure></article>
+<article><h3>Location and car reminders</h3><p>Manage departure reminders in Settings. Add a car Shortcut if you want Polarys to open when your car connects.</p><figure class="app-preview"><div class="phone-cut framed-phone"><img src="assets/settings.png" loading="lazy" alt="Settings screen with departure reminders and car Shortcut setup"></div></figure></article>
+<article><h3>Game days and plans around campus</h3><p>The Socials tab lists Iowa State games and other occasions, with a link to find a ride.</p><figure class="app-preview"><div class="phone-cut native-phone"><img src="assets/socials.png" loading="lazy" alt="Socials screen showing the Iowa State game schedule"></div></figure></article>
 </div></div></section><section class="block" id="about" style="padding-top:0;">
   <div class="wrap about-grid reveal">
     <div class="about-photo">
@@ -682,9 +687,9 @@ footer { border-top: 1px solid var(--border-soft); padding: 44px 0; }
 </section>
 
 <section class="block" id="testing"><div class="wrap"><div class="cta-block reveal">
-  <span class="eyebrow" style="justify-content:center;">Now on TestFlight</span><h2>One step closer to your next night out.</h2>
+  <span class="eyebrow" style="justify-content:center;">Now on TestFlight</span><h2>Try Polarys on your next night out.</h2>
   <p>The Polarys beta is ready to try on iPhone. Get it through TestFlight and let me know how it works on your next night out.</p>
-  <a href="https://testflight.apple.com/join/4NbjhRds" class="btn-primary">Join the TestFlight beta</a>
+  <div class="final-beta-action"><a href="https://testflight.apple.com/join/4NbjhRds" class="btn-primary">Join the TestFlight beta</a></div>
   <p>Reminders depend on phone permissions, GPS, and iOS. They can arrive late or fail to arrive, so make a plan before you leave. Polarys can’t tell you whether you’re sober or safe to drive.</p>
 </div></div></section>
 
