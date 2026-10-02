@@ -564,6 +564,10 @@ footer { border-top: 1px solid var(--border-soft); padding: 44px 0; }
 /* Match the lock-screen preview to the other framed iPhones. */
 .app-preview .lock-screen{border-radius:17% / 8%;border:3px solid #b9b9bd;background:#080808;box-shadow:inset 0 0 0 2px #eeeeef,0 12px 32px #0004;padding:9px}.app-preview .lock-screen img{position:relative;left:auto;top:auto;width:100%;height:100%;object-fit:cover;border-radius:15% / 7%;max-width:100%}
 
+
+/* Device details stay sharp at every preview size. */
+.lock-screen::after{content:"";position:absolute;z-index:2;top:2.3%;left:36%;width:28%;height:3.8%;border-radius:999px;background:#000;pointer-events:none}.home-phone .status-wifi{position:absolute;z-index:2;left:75.1%;top:4.6%;width:5.8%;height:2.5%;background:#1c100d;display:flex;align-items:center;justify-content:center;color:#fff7ed;pointer-events:none}.status-wifi svg{display:block;width:88%;height:88%}
+
 </style>
 </head>
 <body>
@@ -599,7 +603,7 @@ footer { border-top: 1px solid var(--border-soft); padding: 44px 0; }
       </div>
     </div>
 
-    <figure class="app-preview hero-preview"><div class="phone-cut framed-phone"><img src="assets/home.png" alt="Polarys home screen showing venue time and the Get a safe ride button" fetchpriority="high"></div><figcaption>Your night’s venue time. Your ride options.</figcaption></figure>
+    <figure class="app-preview hero-preview"><div class="phone-cut framed-phone home-phone"><span class="status-wifi" aria-hidden="true"><svg viewBox="0 0 24 18" fill="currentColor"><path d="M1 5a17 17 0 0 1 22 0l-2.4 2.5a13.5 13.5 0 0 0-17.2 0ZM5 9a11 11 0 0 1 14 0l-2.5 2.5a7.2 7.2 0 0 0-9 0ZM9 13a4.6 4.6 0 0 1 6 0l-3 3Z"/></svg></span><img src="assets/home.png" alt="Polarys home screen showing venue time and the Get a safe ride button" fetchpriority="high"></div><figcaption>Your night’s venue time. Your ride options.</figcaption></figure>
   </div>
 </header>
 
