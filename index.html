@@ -45,94 +45,88 @@
     </header>
     <main id="main">
       <section class="hero wrap" aria-labelledby="hero-title">
-        <div class="hero-copy">
-          <p class="byline">
-            From a student at Iowa State. For your next night out.
-          </p>
-          <h1 id="hero-title">
-            A night out.<br />A way
-            <span class="home-word"
-              >home<svg viewBox="0 0 390 20" aria-hidden="true">
-                <path
-                  d="M4 13 Q175 0 385 10 M14 18 Q185 9 365 15"
-                /></svg></span
-            >.
-          </h1>
-          <p class="intro">
-            Leaving the bar? Polarys can give you a nudge to figure out your
-            ride home, with Uber, Lyft, transit, or a friend.
-          </p>
-          <a class="button" href="https://testflight.apple.com/join/4NbjhRds"
-            >Try Polarys on iPhone
-            <span aria-hidden="true"
-              ><svg
-                class="arrow-icon"
-                style="--rotation: 0deg"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path d="M5 19 19 5M5 5h14v14" /></svg></span
-          ></a>
-          <p class="download-note">iPhone beta through Apple’s TestFlight.</p>
-          <a class="text-link" href="#how-it-works"
-            >Here’s how it works
-            <span aria-hidden="true"
-              ><svg
-                class="arrow-icon"
-                style="--rotation: 135deg"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path d="M5 19 19 5M5 5h14v14" /></svg></span
-          ></a>
-        </div>
-        <figure class="hero-preview">
-          <div class="preview-heading">
-            <span>A little reminder before you go.</span
-            ><span aria-hidden="true"
-              ><svg
-                class="arrow-icon"
-                style="--rotation: 180deg"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path d="M5 19 19 5M5 5h14v14" /></svg
-            ></span>
-          </div>
-          <img
-            class="lockscreen"
-            src="assets/reminder.png"
-            alt="An iPhone notification from Polarys: How are you getting home? Tap for Uber, Lyft, transit, or a friend."
-            width="851"
-            height="1849"
-            fetchpriority="high"
+        <p class="byline">POLARYS · A LITTLE HELP GETTING HOME</p>
+        <h1 id="hero-title">
+          Enjoy your night.<br /><em>Find your way home.</em>
+        </h1>
+        <p class="intro">
+          Leaving the bar? Polarys can remind you to sort out a ride.<br
+            class="desktop-break"
           />
-          <figcaption>
-            From the app. Unrelated notifications removed.
-          </figcaption>
-        </figure>
+          Uber, Lyft, transit, or a friend—all in one place.
+        </p>
+        <a class="button" href="https://testflight.apple.com/join/4NbjhRds"
+          >Try Polarys on iPhone
+          <svg class="arrow-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 19 19 5M5 5h14v14" /></svg
+        ></a>
+        <p class="download-note">
+          An iPhone beta, built by a student at Iowa State.
+        </p>
+        <div class="night-route" aria-label="From a night out to a ride home">
+          <span class="route-start">Out with friends</span
+          ><svg
+            viewBox="0 0 1100 180"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path
+              class="route-dashed"
+              d="M0 105C150 15 260 155 430 90S710 25 790 95S1000 160 1100 65"
+            />
+            <path
+              class="route-solid"
+              d="M450 84C600 21 710 25 790 95S1000 160 1100 65"
+            /></svg
+          ><a class="route-reminder" href="#demo"
+            >How are you getting home? <span aria-hidden="true">↓</span></a
+          ><span class="route-end">Home again</span>
+        </div>
       </section>
-      <section class="journey-strip" aria-label="What Polarys does">
-        <div class="wrap journey">
-          <span>The bar. A friend’s place.</span
-          ><span class="journey-arrow" aria-hidden="true"
-            ><svg
-              class="arrow-icon"
-              style="--rotation: 45deg"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path d="M5 19 19 5M5 5h14v14" /></svg></span
-          ><span>A reminder when you leave.</span
-          ><span class="journey-arrow" aria-hidden="true"
-            ><svg
-              class="arrow-icon"
-              style="--rotation: 45deg"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path d="M5 19 19 5M5 5h14v14" /></svg></span
-          ><span>Your options for getting home.</span>
+      <section class="demo-section wrap" id="demo" aria-labelledby="demo-title">
+        <div class="demo-intro">
+          <p class="section-label">A night with Polarys</p>
+          <h2 id="demo-title">A nudge when you need it.</h2>
+          <p>Click through to see how it works.</p>
+        </div>
+        <div
+          class="demo-controls"
+          role="group"
+          aria-label="Choose a step in the app walkthrough"
+        >
+          <button type="button" data-demo="bar" aria-pressed="true">
+            1. At the bar</button
+          ><button type="button" data-demo="leave" aria-pressed="false">
+            2. Heading out</button
+          ><button type="button" data-demo="ride" aria-pressed="false">
+            3. Getting home
+          </button>
+        </div>
+        <div class="demo-stage">
+          <div class="demo-copy" aria-live="polite">
+            <p class="section-label" id="demo-label">Before the reminder</p>
+            <h3 id="demo-heading">You’re out.<br />Polarys keeps track.</h3>
+            <p id="demo-description">
+              With location access set up, Polarys recognizes visits to bars.
+              You can also save a friend’s place for house-party nights.
+            </p>
+            <p class="demo-note">
+              App walkthrough · Screens shown for illustration.<br />Personal
+              addresses removed from the ride screen.
+            </p>
+          </div>
+          <figure class="demo-phone">
+            <img
+              id="demo-image"
+              src="assets/home.png"
+              alt="Polarys home screen showing time spent at a venue and the ride button"
+              width="1290"
+              height="2796"
+            />
+            <figcaption id="demo-caption">
+              The home screen in Polarys
+            </figcaption>
+          </figure>
         </div>
       </section>
       <section
