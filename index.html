@@ -1,728 +1,444 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Polarys — Let's not drink &amp; drive</title>
-<meta name="description" content="A ride reminder for nights out. Polarys watches bars and places you save, then helps you find a way home. Built by a student at Iowa State University.">
-<style>
-/* ===== Polarys — shared styles v3 ===== */
-
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap');
-
-:root {
-  --bg: #0D0F14;
-  --surface: #171A22;
-  --surface-2: #1F232D;
-  --border: #2A2F3C;
-  --border-soft: rgba(255,255,255,0.07);
-  --amber: #F0A429;
-  --amber-soft: rgba(240,164,41,0.14);
-  --amber-dim: #C97F1E;
-  --green: #34D399;
-  --text: #F5F3EE;
-  --muted: #8A8FA3;
-  --muted-2: #565C70;
-  --danger: #E5484D;
-
-  --display: 'Sora', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
-  --body: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
-  --mono: ui-monospace, 'SF Mono', 'Menlo', 'Consolas', monospace;
-
-  --max: 1160px;
-}
-
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--body);
-  line-height: 1.55;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-
-/* film-grain + vignette, purely decorative, fixed to viewport */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.5;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
-}
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background:
-    radial-gradient(900px 560px at 12% -8%, rgba(240,164,41,0.10), transparent 60%),
-    radial-gradient(700px 500px at 105% 10%, rgba(240,164,41,0.06), transparent 60%),
-    radial-gradient(1200px 700px at 50% 120%, rgba(240,164,41,0.05), transparent 60%);
-}
-
-a { color: inherit; }
-
-.wrap {
-  max-width: var(--max);
-  margin: 0 auto;
-  padding: 0 32px;
-  position: relative;
-  z-index: 1;
-}
-
-/* ---- reveal-on-scroll ---- */
-.reveal {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity .7s cubic-bezier(.2,.6,.3,1), transform .7s cubic-bezier(.2,.6,.3,1);
-}
-.reveal.in { opacity: 1; transform: translateY(0); }
-@media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
-}
-
-/* ---- Nav ---- */
-nav.site-nav {
-  position: sticky;
-  top: 0;
-  z-index: 40;
-  background: rgba(13,15,20,0.72);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--border-soft);
-}
-
-.nav-inner {
-  max-width: var(--max);
-  margin: 0 auto;
-  padding: 18px 32px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.logo {
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 20px;
-  letter-spacing: -0.02em;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: baseline;
-}
-.logo span { color: var(--amber); }
-
-.nav-status { display: none; }
-@media (min-width: 640px) {
-  .nav-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    font-family: var(--mono);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    color: var(--muted-2);
-    border: 1px solid var(--border-soft);
-    padding: 5px 11px 5px 9px;
-    border-radius: 100px;
-  }
-}
-.nav-status .dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 8px 1px rgba(52,211,153,0.6);
-  flex-shrink: 0;
-}
-
-.nav-links {
-  display: flex;
-  gap: 30px;
-  font-family: var(--mono);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-.nav-links a { text-decoration: none; color: var(--muted); transition: color .15s ease; position: relative; }
-.nav-links a:hover { color: var(--text); }
-
-.nav-cta {
-  background: var(--amber);
-  color: #14161C;
-  font-family: var(--body);
-  font-weight: 600;
-  font-size: 13px;
-  padding: 9px 18px;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: background .15s ease, transform .15s ease;
-}
-.nav-cta:hover { background: #ffb849; transform: translateY(-1px); }
-
-/* ---- Eyebrow / mono tag ---- */
-.eyebrow {
-  font-family: var(--mono);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--amber);
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-}
-.eyebrow::before {
-  content: '';
-  width: 14px;
-  height: 1px;
-  background: var(--amber);
-}
-
-/* ============ HERO ============ */
-.hero { padding: 76px 0 40px; position: relative; }
-
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 40px;
-  align-items: center;
-  min-height: 560px;
-}
-
-.hero h1 {
-  font-family: var(--display);
-  font-weight: 800;
-  font-size: clamp(40px, 5.4vw, 66px);
-  line-height: 1.02;
-  letter-spacing: -0.025em;
-  margin: 20px 0 22px;
-}
-.hero h1 .thin { font-weight: 400; color: var(--muted); }
-.hero h1 .amber { color: var(--amber); }
-
-.hero p.lede {
-  font-size: 18px;
-  color: var(--muted);
-  max-width: 44ch;
-  margin: 0 0 34px;
-}
-
-.hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
-
-.btn-primary {
-  background: var(--amber);
-  color: #14161C;
-  font-weight: 600;
-  font-size: 15px;
-  padding: 15px 28px;
-  border-radius: 10px;
-  text-decoration: none;
-  display: inline-block;
-  transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
-  box-shadow: 0 8px 24px -8px rgba(240,164,41,0.5);
-}
-.btn-primary:hover { background: #ffb849; transform: translateY(-2px); box-shadow: 0 12px 28px -8px rgba(240,164,41,0.65); }
-
-.btn-secondary {
-  background: transparent;
-  color: var(--text);
-  font-weight: 600;
-  font-size: 15px;
-  padding: 15px 24px;
-  border-radius: 10px;
-  text-decoration: none;
-  border: 1px solid var(--border);
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: border-color .15s ease, background .15s ease;
-}
-.btn-secondary:hover { border-color: var(--amber); background: rgba(240,164,41,0.06); }
-
-.hero-proof {
-  margin-top: 40px;
-  padding-top: 24px;
-  border-top: 1px solid var(--border-soft);
-  display: flex;
-  gap: 32px;
-  font-family: var(--mono);
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--muted-2);
-  letter-spacing: 0.02em;
-}
-.hero-proof b { color: var(--text); font-family: var(--display); font-size: 15px; font-weight: 700; display: block; margin-bottom: 2px; }
-
-/* ---- Signature: geofence pulse ---- */
-.pulse-stage {
-  position: relative;
-  aspect-ratio: 1 / 1;
-  max-width: 380px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.pulse-ring {
-  position: absolute;
-  border-radius: 50%;
-  border: 1.5px solid var(--amber);
-  opacity: 0;
-  animation: pulse-out 3.2s cubic-bezier(.2,.6,.35,1) infinite;
-}
-.pulse-ring.r1 { animation-delay: 0s; }
-.pulse-ring.r2 { animation-delay: 1.05s; }
-.pulse-ring.r3 { animation-delay: 2.1s; }
-
-@keyframes pulse-out {
-  0%   { width: 40px; height: 40px; opacity: 0.65; }
-  100% { width: 380px; height: 380px; opacity: 0; }
-}
-@media (prefers-reduced-motion: reduce) { .pulse-ring { animation: none; opacity: 0.18; } }
-
-.pulse-core {
-  position: relative;
-  z-index: 2;
-  width: 68px;
-  height: 68px;
-  border-radius: 50%;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 0 8px var(--bg), 0 12px 32px rgba(0,0,0,0.4);
-}
-.pulse-core::after {
-  content: '';
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--amber);
-  box-shadow: 0 0 16px 2px rgba(240,164,41,0.7);
-}
-
-.pulse-tag {
-  position: absolute;
-  bottom: -6px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 7px 14px;
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--muted);
-  white-space: nowrap;
-  z-index: 3;
-}
-.pulse-tag b { color: var(--amber); font-weight: 700; }
-
-/* ============ Telemetry stat band ============ */
-.stat-band { border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); padding: 58px 0; }
-.stat-band .wrap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border-soft); border: 1px solid var(--border-soft); border-radius: 16px; overflow: hidden; }
-
-.tstat { background: var(--bg); padding: 30px 28px; position: relative; }
-.tstat .corner { position: absolute; width: 10px; height: 10px; top: 12px; left: 12px; border-top: 1px solid var(--amber-dim); border-left: 1px solid var(--amber-dim); opacity: 0.5; }
-.tstat .num { font-family: var(--display); font-size: 42px; font-weight: 700; color: var(--amber); letter-spacing: -0.01em; line-height: 1; }
-.tstat .label { color: var(--muted); font-size: 13.5px; font-weight: 500; margin-top: 12px; max-width: 28ch; }
-.tstat .src { font-family: var(--mono); font-size: 10.5px; font-weight: 600; color: var(--muted-2); margin-top: 14px; display: block; letter-spacing: 0.02em; }
-
-/* ============ Section shell ============ */
-section.block { padding: 108px 0; }
-.section-head { max-width: 620px; margin-bottom: 60px; }
-.section-head h2 { font-family: var(--display); font-size: clamp(28px, 3.4vw, 40px); letter-spacing: -0.02em; margin: 16px 0 14px; font-weight: 700; }
-.section-head p { color: var(--muted); font-size: 16px; }
-
-/* ============ Flow (timeline) ============ */
-.flow { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
-.flow::before { content: ''; position: absolute; top: 26px; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, var(--border), var(--border) 92%, transparent); }
-
-.flow-step { padding: 0 20px 0 0; position: relative; }
-.flow-step:last-child { padding-right: 0; }
-
-.flow-step .idx {
-  width: 52px; height: 52px; border-radius: 50%;
-  background: var(--surface); border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--mono); font-size: 14px; color: var(--amber);
-  margin-bottom: 22px; position: relative; z-index: 2;
-}
-.flow-step.danger .idx { border-color: rgba(229,72,77,0.5); color: var(--danger); }
-
-.flow-step h3 { font-family: var(--display); font-size: 18px; margin: 0 0 9px; letter-spacing: -0.01em; font-weight: 600; }
-.flow-step p { color: var(--muted); font-size: 13.5px; font-weight: 500; margin: 0; line-height: 1.6; }
-
-.flow-step .chips { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 6px; }
-.flow-step .chip { font-family: var(--mono); font-size: 10px; font-weight: 600; padding: 5px 9px; border-radius: 6px; background: var(--surface); color: var(--muted); border: 1px solid var(--border-soft); }
-.flow-step.danger .chip.warn { background: rgba(229,72,77,0.1); color: var(--danger); border-color: rgba(229,72,77,0.3); }
-
-@media (max-width: 880px) {
-  .flow { grid-template-columns: 1fr; gap: 34px; }
-  .flow::before { display: none; }
-}
-
-/* ============ Feature grid ============ */
-.feature-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border-soft); border: 1px solid var(--border-soft); border-radius: 16px; overflow: hidden; }
-.feature-card { background: var(--bg); padding: 28px 24px; transition: background .2s ease; }
-.feature-card:hover { background: var(--surface); }
-.feature-card .ico { width: 36px; height: 36px; border-radius: 9px; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; font-size: 16px; background: var(--amber-soft); }
-.feature-card h4 { font-family: var(--display); font-size: 15px; margin: 0 0 5px; font-weight: 600; }
-.feature-card p { font-size: 13px; font-weight: 500; color: var(--muted); margin: 0; line-height: 1.5; }
-
-@media (max-width: 880px) { .feature-grid { grid-template-columns: 1fr 1fr; } }
-
-/* ============ Bluetooth logic explainer ============ */
-.bt-explainer {
-  display: grid;
-  grid-template-columns: 0.85fr 1.15fr;
-  gap: 48px;
-  align-items: center;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 48px;
-  position: relative;
-  overflow: hidden;
-}
-.bt-explainer::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(360px 260px at 90% 20%, rgba(229,72,77,0.10), transparent 65%);
-  pointer-events: none;
-}
-.bt-explainer > * { position: relative; z-index: 1; }
-
-.bt-visual {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.bt-step {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: var(--bg);
-  border: 1px solid var(--border-soft);
-  border-radius: 12px;
-  padding: 14px 16px;
-  font-family: var(--mono);
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--muted);
-}
-.bt-step .n { color: var(--muted-2); width: 16px; flex-shrink: 0; }
-.bt-step.hit { border-color: rgba(229,72,77,0.4); color: var(--text); background: rgba(229,72,77,0.06); }
-.bt-step.hit .n { color: var(--danger); }
-.bt-step.safe { border-color: rgba(52,211,153,0.35); color: var(--text); background: rgba(52,211,153,0.06); }
-.bt-step.safe .n { color: var(--green); }
-.bt-arrow { text-align: center; color: var(--muted-2); font-size: 12px; font-weight: 600; font-family: var(--mono); }
-
-.bt-copy h2 { font-family: var(--display); font-size: clamp(24px, 3vw, 32px); letter-spacing: -0.02em; margin: 14px 0 16px; font-weight: 700; }
-.bt-copy p { color: var(--muted); font-size: 15.5px; margin: 0 0 16px; line-height: 1.65; }
-.bt-copy p b { color: var(--text); font-weight: 700; }
-.bt-copy .fine { font-family: var(--mono); font-size: 11.5px; font-weight: 600; color: var(--muted-2); margin-top: 18px; }
-
-@media (max-width: 880px) {
-  .bt-explainer { grid-template-columns: 1fr; padding: 32px 24px; }
-}
-
-/* ============ About ============ */
-.about-grid {
-  display: grid;
-  grid-template-columns: 0.85fr 1.15fr;
-  gap: 52px;
-  align-items: center;
-}
-
-.about-photo-frame {
-  aspect-ratio: 4 / 5;
-  border-radius: 22px;
-  background: linear-gradient(160deg, var(--surface-2), var(--bg));
-  border: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  position: relative;
-}
-.about-photo-frame img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-.about-photo-frame .initials {
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 72px;
-  color: var(--amber);
-  opacity: 0.35;
-  letter-spacing: -0.02em;
-}
-.about-caption {
-  margin-top: 14px;
-  font-family: var(--mono);
-  font-size: 11.5px;
-  font-weight: 600;
-  color: var(--muted-2);
-  letter-spacing: 0.04em;
-}
-.about-caption b { color: var(--muted); font-weight: 600; }
-
-.about-copy h2 { font-family: var(--display); font-size: clamp(26px, 3.2vw, 36px); letter-spacing: -0.02em; margin: 14px 0 16px; font-weight: 700; }
-.about-copy p { color: var(--muted); font-size: 15.5px; margin: 0 0 16px; line-height: 1.7; }
-.about-copy p b { color: var(--text); font-weight: 700; }
-.about-copy p:last-child { margin-bottom: 0; }
-
-@media (max-width: 880px) {
-  .about-grid { grid-template-columns: 1fr; }
-  .about-photo-frame { max-width: 280px; margin: 0 auto; }
-}
-
-/* ============ CTA / waitlist ============ */
-.cta-block {
-  position: relative; background: var(--surface); border: 1px solid var(--border);
-  border-radius: 22px; padding: 72px 48px; text-align: center; margin: 0 auto; overflow: hidden;
-}
-.cta-block::before {
-  content: ''; position: absolute; inset: 0;
-  background: radial-gradient(420px 280px at 50% 0%, rgba(240,164,41,0.14), transparent 70%);
-  pointer-events: none;
-}
-.cta-block > * { position: relative; z-index: 1; }
-.cta-block h2 { font-family: var(--display); font-size: clamp(26px, 3.4vw, 38px); margin: 16px 0 12px; letter-spacing: -0.02em; font-weight: 700; }
-.cta-block p { color: var(--muted); max-width: 48ch; margin: 0 auto 34px; }
-
-.waitlist-form { display: flex; gap: 10px; max-width: 420px; margin: 0 auto; }
-.waitlist-form input { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; color: var(--text); font-family: var(--body); font-size: 14px; }
-.waitlist-form input:focus { outline: 2px solid var(--amber); outline-offset: 1px; }
-.waitlist-form input::placeholder { color: var(--muted-2); }
-.waitlist-note { font-family: var(--mono); font-size: 11.5px; font-weight: 600; color: var(--muted-2); margin-top: 28px; }
-
-/* ============ Footer ============ */
-footer { border-top: 1px solid var(--border-soft); padding: 44px 0; }
-.footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-.footer-links { display: flex; gap: 26px; font-size: 13px; font-weight: 500; color: var(--muted); }
-.footer-links a { text-decoration: none; }
-.footer-links a:hover { color: var(--text); }
-.footer-note { font-family: var(--mono); font-size: 11.5px; font-weight: 600; color: var(--muted-2); }
-
-/* ============ Legal pages ============ */
-.legal-hero { padding: 68px 0 24px; }
-.legal-hero h1 { font-family: var(--display); font-size: clamp(30px, 4vw, 44px); letter-spacing: -0.025em; margin: 18px 0 10px; font-weight: 700; }
-.legal-updated { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--muted); }
-
-.legal-body { padding: 24px 0 110px; max-width: 740px; }
-.legal-body h2 { font-family: var(--display); font-size: 20px; margin: 46px 0 14px; letter-spacing: -0.01em; color: var(--amber); font-weight: 600; }
-.legal-body h2:first-child { margin-top: 0; }
-.legal-body p { color: var(--text); font-size: 15.5px; margin: 0 0 16px; }
-.legal-body p.muted { color: var(--muted); }
-.legal-body ul { color: var(--text); font-size: 15.5px; padding-left: 20px; margin: 0 0 16px; }
-.legal-body li { margin-bottom: 9px; }
-.legal-body .callout {
-  background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--amber);
-  border-radius: 10px; padding: 20px 22px; margin: 26px 0; font-size: 14px; font-weight: 500; color: var(--muted);
-}
-.legal-body .callout b { color: var(--text); font-weight: 700; }
-
-/* ============ Responsive ============ */
-@media (max-width: 940px) {
-  .hero-grid { grid-template-columns: 1fr; min-height: auto; }
-  .pulse-stage { order: -1; max-width: 280px; margin-bottom: 8px; }
-  .stat-band .wrap { grid-template-columns: 1fr; }
-  .nav-links { display: none; }
-  .cta-block { padding: 48px 26px; }
-  .waitlist-form { flex-direction: column; }
-  .hero-proof { flex-wrap: wrap; gap: 22px; }
-}
-
-
-/* App screenshots integrated into the original dark and amber design. */
-.app-preview{margin:24px auto 0;max-width:290px;text-align:center}.app-preview img{width:100%;height:auto;display:block;border-radius:0;transform:none;box-shadow:none}.app-preview figcaption{font-size:11px;line-height:1.6;color:var(--muted);margin-top:14px}.hero-preview{max-width:310px;margin:0 auto}.screenshot-pair{display:grid;grid-template-columns:1fr 1fr;gap:48px}.screenshot-pair article{min-width:0;padding:28px;background:var(--surface);border:1px solid var(--border);border-radius:20px}.screenshot-pair h3{font-size:23px;margin:0 0 14px}.screenshot-pair p,.screenshot-note{color:var(--muted);line-height:1.7;font-size:15px}.screenshot-note{max-width:780px;margin:30px auto 0;text-align:center}.plain-screen{max-width:270px}.plain-screen img{border:0;border-radius:0;padding:0;background:none}.hero-grid{align-items:center}.nav-status{white-space:nowrap}
-@media(max-width:760px){.screenshot-pair{grid-template-columns:1fr;gap:24px}.screenshot-pair article{padding:24px}.hero-preview{margin-top:35px;max-width:280px}.nav-status{display:none}}
-
-
-/* Uniform phone cutouts: remove the baked-in pale canvas at the layout level. */
-.app-preview,.hero-preview,.plain-screen{width:min(100%,360px);max-width:360px;margin:28px auto 0}.phone-cut{position:relative;width:100%;aspect-ratio:0.48;overflow:hidden;border-radius:17% / 8%;isolation:isolate;background:transparent}.app-preview .phone-cut img{position:absolute;max-width:none;width:114%;height:119%;left:-7%;top:-8.5%;border-radius:0;object-fit:fill}.app-preview .native-phone img{width:100%;height:100%;left:0;top:0;object-fit:contain}.app-preview .lock-screen img{width:100%;height:100%;left:0;top:0;object-fit:cover}.lock-screen{border-radius:0}.screenshot-pair article{background:transparent;border:0;padding:20px 0}.screenshot-pair{gap:64px}.notification-journey{grid-template-columns:1fr 1fr;align-items:start}.notification-journey>article:first-child{grid-column:1;grid-row:1 / 3}.check-in-flow{grid-column:2;padding:20px 0 0}.check-in-flow h3{font-size:22px;margin:15px 0 12px}.check-in-flow p{color:var(--muted);font-size:14px;line-height:1.7}.answer-options{display:flex;flex-wrap:wrap;gap:9px;list-style:none;padding:0;margin:18px 0}.answer-options li{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:12px 16px;font-size:13px;color:var(--text)}.flow-down{display:block;color:var(--amber);font-size:30px;margin:20px 0}.answer-note{font-size:12px!important}.ride-connector{display:flex;flex-direction:column;align-items:center;color:var(--amber);gap:12px;margin:28px 0 0;font-size:13px}.ride-connector span:last-child{font-size:52px;line-height:1}.ride-result{grid-column:2}.final-beta-action{display:flex;justify-content:center;margin:8px 0 30px}.cta-block p:last-child{font-size:12px;line-height:1.7;max-width:65ch;margin-bottom:0}.cta-block .final-beta-action a{display:inline-flex;text-align:center;justify-content:center}.hero-preview{margin-top:0}
-@media(max-width:760px){.notification-journey{display:flex;flex-direction:column;gap:24px}.notification-journey>*{width:100%}.app-preview,.hero-preview,.plain-screen{width:min(100%,360px);max-width:360px}.hero-preview{margin-top:35px}.screenshot-pair{gap:36px}.cta-block{padding:40px 22px}.final-beta-action .btn-primary{width:100%;max-width:300px}}
-
-
-/* Match the lock-screen preview to the other framed iPhones. */
-.app-preview .lock-screen{border-radius:17% / 8%;border:3px solid #b9b9bd;background:#080808;box-shadow:inset 0 0 0 2px #eeeeef,0 12px 32px #0004;padding:9px}.app-preview .lock-screen img{position:relative;left:auto;top:auto;width:100%;height:100%;object-fit:cover;border-radius:15% / 7%;max-width:100%}
-
-
-/* Device details stay sharp at every preview size. */
-.lock-screen::after{content:"";position:absolute;z-index:2;top:2.3%;left:36%;width:28%;height:3.8%;border-radius:999px;background:#000;pointer-events:none}.home-phone .status-wifi{position:absolute;z-index:2;left:75.1%;top:4.6%;width:5.8%;height:2.5%;background:#1c100d;display:flex;align-items:center;justify-content:center;color:#fff7ed;pointer-events:none}.status-wifi svg{display:block;width:88%;height:88%}
-
-</style>
-</head>
-<body>
-
-<nav class="site-nav">
-  <div class="nav-inner">
-    <a href="index.html" class="logo">pol<span>arys</span></a>
-    <div class="nav-status"><span class="dot"></span>built at Iowa State University</div>
-    <div class="nav-links">
-      <a href="#how-it-works">How it works</a>
-      <a href="#why">Why it matters</a>
-      <a href="#saved-places">House parties</a>
-      <a href="#about">About</a>
-      <a href="privacy.html">Privacy</a>
-    </div>
-    <a href="https://testflight.apple.com/join/4NbjhRds" class="nav-cta">Get the beta</a>
-  </div>
-</nav>
-
-<header class="hero">
-  <div class="wrap hero-grid">
-    <div class="hero-copy">
-      <h1>Good night out.<br><span class="amber">Let’s get you home.</span></h1>
-      <p class="lede">Going out tonight? Polarys keeps track of time at bars and places you save. When you leave after 45+ minutes between 9 PM and 5 AM, it can remind you to sort out a ride home.</p>
-      <div class="hero-ctas">
-        <a href="https://testflight.apple.com/join/4NbjhRds" class="btn-primary">Try it on TestFlight</a>
-        <a href="#saved-places" class="btn-secondary">For house parties too →</a>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Polarys — A night out. A way home.</title>
+    <meta
+      name="description"
+      content="Leaving the bar? Polarys can remind you to find a ride home. An iPhone app built by an Iowa State student, now on TestFlight."
+    />
+    <meta name="theme-color" content="#edf2f4" />
+    <link rel="icon" href="assets/polarys-icon.png" />
+    <link rel="stylesheet" href="site.css" />
+    <script src="site.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="masthead wrap">
+      <a class="wordmark" href="index.html" aria-label="Polarys home"
+        >polarys<span aria-hidden="true"
+          ><svg
+            class="arrow-icon"
+            style="--rotation: 0deg"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path d="M5 19 19 5M5 5h14v14" /></svg></span
+      ></a>
+      <nav aria-label="Main navigation">
+        <a href="#how-it-works">How it works</a><a href="#about">Meet Anay</a
+        ><a
+          class="nav-download"
+          href="https://testflight.apple.com/join/4NbjhRds"
+          >Try the iPhone beta
+          <span aria-hidden="true"
+            ><svg
+              class="arrow-icon"
+              style="--rotation: 0deg"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path d="M5 19 19 5M5 5h14v14" /></svg></span
+        ></a>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero wrap" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="byline">
+            From a student at Iowa State. For your next night out.
+          </p>
+          <h1 id="hero-title">
+            A night out.<br />A way
+            <span class="home-word"
+              >home<svg viewBox="0 0 390 20" aria-hidden="true">
+                <path
+                  d="M4 13 Q175 0 385 10 M14 18 Q185 9 365 15"
+                /></svg></span
+            >.
+          </h1>
+          <p class="intro">
+            Leaving the bar? Polarys can give you a nudge to figure out your
+            ride home, with Uber, Lyft, transit, or a friend.
+          </p>
+          <a class="button" href="https://testflight.apple.com/join/4NbjhRds"
+            >Try Polarys on iPhone
+            <span aria-hidden="true"
+              ><svg
+                class="arrow-icon"
+                style="--rotation: 0deg"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="M5 19 19 5M5 5h14v14" /></svg></span
+          ></a>
+          <p class="download-note">iPhone beta through Apple’s TestFlight.</p>
+          <a class="text-link" href="#how-it-works"
+            >Here’s how it works
+            <span aria-hidden="true"
+              ><svg
+                class="arrow-icon"
+                style="--rotation: 135deg"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="M5 19 19 5M5 5h14v14" /></svg></span
+          ></a>
+        </div>
+        <figure class="hero-preview">
+          <div class="preview-heading">
+            <span>A little reminder before you go.</span
+            ><span aria-hidden="true"
+              ><svg
+                class="arrow-icon"
+                style="--rotation: 180deg"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="M5 19 19 5M5 5h14v14" /></svg
+            ></span>
+          </div>
+          <img
+            class="lockscreen"
+            src="assets/reminder.png"
+            alt="An iPhone notification from Polarys: How are you getting home? Tap for Uber, Lyft, transit, or a friend."
+            width="851"
+            height="1849"
+            fetchpriority="high"
+          />
+          <figcaption>
+            From the app. Unrelated notifications removed.
+          </figcaption>
+        </figure>
+      </section>
+      <section class="journey-strip" aria-label="What Polarys does">
+        <div class="wrap journey">
+          <span>The bar. A friend’s place.</span
+          ><span class="journey-arrow" aria-hidden="true"
+            ><svg
+              class="arrow-icon"
+              style="--rotation: 45deg"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path d="M5 19 19 5M5 5h14v14" /></svg></span
+          ><span>A reminder when you leave.</span
+          ><span class="journey-arrow" aria-hidden="true"
+            ><svg
+              class="arrow-icon"
+              style="--rotation: 45deg"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path d="M5 19 19 5M5 5h14v14" /></svg></span
+          ><span>Your options for getting home.</span>
+        </div>
+      </section>
+      <section
+        class="walkthrough wrap section"
+        id="how-it-works"
+        aria-labelledby="walkthrough-title"
+      >
+        <div class="section-top">
+          <p class="section-label">How it works</p>
+          <h2 id="walkthrough-title">
+            From “heading out”<br />to “heading home.”
+          </h2>
+        </div>
+        <div class="walkthrough-grid">
+          <div class="steps">
+            <article class="step">
+              <span class="step-number">01</span>
+              <div>
+                <h3>Set it up before you go.</h3>
+                <p>
+                  Save your home address and allow location access and
+                  notifications. Polarys uses visits to bars to keep track of
+                  your night.
+                </p>
+                <a class="inline-link" href="#setup"
+                  >What permissions does it need?
+                  <svg
+                    class="arrow-icon"
+                    style="--rotation: 0deg"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path d="M5 19 19 5M5 5h14v14" /></svg
+                ></a>
+              </div>
+            </article>
+            <article class="step">
+              <span class="step-number">02</span>
+              <div>
+                <h3>Get a reminder when you leave.</h3>
+                <p>
+                  After you’ve spent time at a bar, Polarys can notice you
+                  leaving and ask, “How are you getting home?” Tap the
+                  notification to open your options.
+                </p>
+              </div>
+            </article>
+            <article class="step">
+              <span class="step-number">03</span>
+              <div>
+                <h3>Choose your way home.</h3>
+                <p>
+                  Open Uber or Lyft with your saved home as the destination,
+                  check public transit, or text a friend. You can also open the
+                  Ride tab yourself, any time.
+                </p>
+              </div>
+            </article>
+            <p class="plain-note">
+              Polarys is a reminder, not a sobriety test. It can’t tell you
+              whether you’re safe to drive.
+            </p>
+          </div>
+          <figure class="ride-preview">
+            <img
+              src="assets/ride.png"
+              alt="The Polarys Ride screen, with options for Uber, Lyft, public transit, and texting a friend"
+              width="852"
+              height="1846"
+              loading="lazy"
+            />
+            <figcaption>The Ride tab. Personal addresses removed.</figcaption>
+          </figure>
+        </div>
+      </section>
+      <section
+        class="places-section"
+        id="saved-places"
+        aria-labelledby="places-title"
+      >
+        <div class="wrap places-grid">
+          <div>
+            <p class="section-label">Not every night starts at a bar</p>
+            <h2 id="places-title">That friend who<br />always hosts?</h2>
+            <p class="section-intro">You can save their place, too.</p>
+          </div>
+          <div class="places-copy">
+            <p>
+              Give the address a name you’ll recognize in Settings. Polarys can
+              send the same kind of departure reminder when you leave a saved
+              house-party address.
+            </p>
+            <p>
+              Save up to ten places and remove them whenever you want. Your home
+              address is separate—getting home ends your night.
+            </p>
+            <a class="inline-link" href="#reminders"
+              >More about when reminders work
+              <svg
+                class="arrow-icon"
+                style="--rotation: 0deg"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="M5 19 19 5M5 5h14v14" /></svg
+            ></a>
+          </div>
+        </div>
+      </section>
+      <section class="section wrap questions" aria-labelledby="questions-title">
+        <div>
+          <p class="section-label">A few things to know</p>
+          <h2 id="questions-title">Before you<br />head out.</h2>
+          <p>
+            It helps to get this sorted<br />
+            while you’re still at home.
+          </p>
+        </div>
+        <div class="faq-list">
+          <details id="setup">
+            <summary>
+              What do I need to set up?<span aria-hidden="true">+</span>
+            </summary>
+            <div class="answer">
+              <p>
+                Save your home address in Settings, then allow Always location
+                access, Precise Location, and notifications. Add any friends’
+                places you want Polarys to recognize.
+              </p>
+              <p>
+                Location access helps the app recognize visits and departures.
+                Notifications let it send the ride reminder. You can manage
+                permissions in your iPhone’s Settings.
+              </p>
+              <a href="privacy.html"
+                >Read the privacy policy
+                <svg
+                  class="arrow-icon"
+                  style="--rotation: 0deg"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path d="M5 19 19 5M5 5h14v14" /></svg
+              ></a>
+            </div>
+          </details>
+          <details id="reminders">
+            <summary>
+              When will I get a reminder?<span aria-hidden="true">+</span>
+            </summary>
+            <div class="answer">
+              <p>
+                Polarys looks for visits to bars and saved party addresses
+                between 9 in the evening and 5 in the morning, in your local
+                time. After at least 45 minutes at these places, detecting your
+                departure can trigger a reminder.
+              </p>
+              <p>
+                Reminders depend on your permissions, GPS, and iOS. They can
+                arrive late or fail to arrive. Make a plan before you leave, and
+                open the Ride tab whenever you need it.
+              </p>
+            </div>
+          </details>
+          <details>
+            <summary>
+              Does it tell me if I’m sober?<span aria-hidden="true">+</span>
+            </summary>
+            <div class="answer">
+              <p>
+                No. The activity level on the home screen is based on venue time
+                and a qualifying connection to a saved car. It does not measure
+                alcohol or tell you whether you can drive.
+              </p>
+              <p>
+                If you say you were planning to drive, the app asks how much
+                you’ve had to drink. Your answer isn’t saved, and every answer
+                leads to ride options.
+              </p>
+            </div>
+          </details>
+          <details>
+            <summary>
+              What happens if I connect to my car?<span aria-hidden="true"
+                >+</span
+              >
+            </summary>
+            <div class="answer">
+              <p>
+                You can save your car’s Bluetooth connection in Settings. After
+                time at a bar, a connection to that car can prompt Polarys to
+                encourage another way home.
+              </p>
+              <p>
+                Keep Polarys open or use the car Shortcut setup in Settings for
+                detection. This is another reminder to consider a ride, not a
+                way to measure sobriety.
+              </p>
+            </div>
+          </details>
+          <details>
+            <summary>
+              How do I get the app?<span aria-hidden="true">+</span>
+            </summary>
+            <div class="answer">
+              <p>
+                Polarys is currently an iPhone beta. Open the beta link on your
+                iPhone, install Apple’s TestFlight if prompted, then accept the
+                invitation to install Polarys.
+              </p>
+              <a href="https://testflight.apple.com/join/4NbjhRds"
+                >Open the TestFlight invitation
+                <svg
+                  class="arrow-icon"
+                  style="--rotation: 0deg"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path d="M5 19 19 5M5 5h14v14" /></svg
+              ></a>
+            </div>
+          </details>
+        </div>
+      </section>
+      <section class="about-section" id="about" aria-labelledby="about-title">
+        <div class="wrap about-grid">
+          <figure class="founder-photo">
+            <img
+              src="assets/anay-portrait.png"
+              alt="Anay Shah, the student building Polarys"
+              width="1116"
+              height="1410"
+              loading="lazy"
+            />
+            <figcaption>Anay Shah · Iowa State University</figcaption>
+          </figure>
+          <div class="about-copy">
+            <p class="section-label">The person behind Polarys</p>
+            <h2 id="about-title">Hi, I’m Anay.</h2>
+            <p>
+              I’m an Iowa State student building Polarys. The idea is pretty
+              simple: getting home should be part of the plan, even when the
+              rest of the night wasn’t planned at all.
+            </p>
+            <p>
+              I named it after the North Star. I liked the idea of something
+              that helps you find your way home. I’m testing the iPhone app with
+              friends and working through what’s useful on an actual night out.
+            </p>
+            <a class="inline-link" href="mailto:hello@polarys.app"
+              >Tried it? Tell me how it went
+              <svg
+                class="arrow-icon"
+                style="--rotation: 0deg"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="M5 19 19 5M5 5h14v14" /></svg
+            ></a>
+          </div>
+        </div>
+      </section>
+      <section class="wrap closing section" aria-labelledby="closing-title">
+        <div>
+          <p class="section-label">Give it a try</p>
+          <h2 id="closing-title">Got plans this weekend?</h2>
+          <p>Set up Polarys before you head out.</p>
+        </div>
+        <a class="button" href="https://testflight.apple.com/join/4NbjhRds"
+          >Get the iPhone beta
+          <span aria-hidden="true"
+            ><svg
+              class="arrow-icon"
+              style="--rotation: 0deg"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path d="M5 19 19 5M5 5h14v14" /></svg></span
+        ></a>
+      </section>
+    </main>
+    <footer class="wrap">
+      <div class="footer-top">
+        <a class="wordmark" href="index.html"
+          >polarys<span aria-hidden="true"
+            ><svg
+              class="arrow-icon"
+              style="--rotation: 0deg"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path d="M5 19 19 5M5 5h14v14" /></svg></span
+        ></a>
+        <nav aria-label="Footer">
+          <a href="privacy.html">Privacy</a><a href="terms.html">Terms</a
+          ><a href="mailto:hello@polarys.app">Contact Anay</a>
+        </nav>
       </div>
-      <div class="hero-proof">
-        <div><b>9 PM–5 AM</b>nighttime monitoring</div>
-        <div><b>45+ minutes</b>before a departure reminder</div>
-        <div><b>Your places</b>bars and friends’ houses</div>
-      </div>
-    </div>
-
-    <figure class="app-preview hero-preview"><div class="phone-cut framed-phone home-phone"><span class="status-wifi" aria-hidden="true"><svg viewBox="0 0 24 18" fill="currentColor"><path d="M1 5a17 17 0 0 1 22 0l-2.4 2.5a13.5 13.5 0 0 0-17.2 0ZM5 9a11 11 0 0 1 14 0l-2.5 2.5a7.2 7.2 0 0 0-9 0ZM9 13a4.6 4.6 0 0 1 6 0l-3 3Z"/></svg></span><img src="assets/home.png" alt="Polarys home screen showing venue time and the Get a safe ride button" fetchpriority="high"></div><figcaption>Your night’s venue time. Your ride options.</figcaption></figure>
-  </div>
-</header>
-
-<section class="stat-band reveal" id="why">
-  <div class="wrap">
-    <div class="tstat"><span class="corner"></span><span class="num">Before</span><p class="label">Save your home address and the places you go. Allow Always location, Precise Location, and notifications.</p><span class="src">set this up before you head out</span></div>
-    <div class="tstat"><span class="corner"></span><span class="num">During</span><p class="label">Polarys watches for visits at night. Bars and saved party addresses count toward the same session.</p><span class="src">9 pm–5 am, local time</span></div>
-    <div class="tstat"><span class="corner"></span><span class="num">After</span><p class="label">Leaving after 45+ venue minutes can trigger a ride reminder. You can always open ride options yourself.</p><span class="src">have a plan before getting in the car</span></div>
-  </div>
-</section>
-
-<section class="block" id="how-it-works"><div class="wrap">
-<div class="section-head"><span class="eyebrow">How it works</span><h2>Leaving? Figure out your ride.</h2><p>Here’s what Polarys does when you’re out.</p></div>
-<div class="screenshot-pair notification-journey">
-<article><h3>A reminder when you leave</h3><p>Spend 45+ minutes at bars, clubs, nightclubs, or a saved house-party address between 9 PM and 5 AM. When Polarys detects you leaving, it sends “How are you getting home?” Tap to check your options.</p><figure class="app-preview plain-screen"><div class="phone-cut lock-screen"><img src="assets/reminder.png" alt="Polarys departure notification on an iPhone lock screen" loading="lazy"></div><figcaption>Lock screen screenshot. Unrelated notifications removed.</figcaption></figure></article>
-<div class="check-in-flow"><span class="eyebrow">Tap the reminder</span><h3>How are you getting home?</h3><p>First, it asks whether you’re planning to drive or need a ride.</p><ul class="answer-options"><li>I was planning to drive</li><li>Find a ride home</li></ul><span class="flow-down" aria-hidden="true">↓</span><h3>How much have you had to drink?</h3><p>If you choose “I was planning to drive,” these are your options:</p><ul class="answer-options drinks"><li>0</li><li>1–3</li><li>4–5</li><li>6+</li><li>Prefer not to say</li></ul><p class="answer-note">Your answer isn’t saved. Every answer leads to ride options. Choose “Find a ride home” to go straight there.</p><div class="ride-connector"><span>Choose your ride</span><span aria-hidden="true">↓</span></div></div><article class="ride-result"><h3>Pick how you’re getting home</h3><p>Add your home address in Settings. Polarys automatically sets it as your destination when you open Uber or Lyft through the app. You can also check transit or text a friend.</p><figure class="app-preview"><div class="phone-cut framed-phone"><img src="assets/ride.png" alt="Ride screen with Uber, Lyft, Public Transit and Text a Friend" loading="lazy"></div><figcaption>Ride options, with personal addresses removed.</figcaption></figure></article>
-</div>
-</div></section>
-<section class="block" id="saved-places" style="padding-top:0;">
-  <div class="wrap"><div class="bt-explainer reveal">
-    <div class="bt-visual">
-      <div class="bt-step"><span class="n">01</span> Find the full address</div><div class="bt-arrow">↓</div>
-      <div class="bt-step"><span class="n">02</span> Give it a name you’ll recognize</div><div class="bt-arrow">↓</div>
-      <div class="bt-step hit"><span class="n">03</span> Get the same nighttime ride reminders</div>
-    </div>
-    <div class="bt-copy"><span class="eyebrow">For house parties too</span><h2>“I do stupid stuff here.”</h2>
-      <p>You know that friend who always hosts? Save their address in Settings. Polarys can watch that place the same way it watches a bar.</p>
-      <p>Add up to 10 places, give them nicknames, and remove them whenever you want. The same 9 PM–5 AM window and 45-minute departure rule apply. Your saved home is separate: getting home ends your night.</p>
-      <p class="fine">Saved places stay on your phone until you remove them. Address lookup uses Google or your device’s location service.</p>
-    </div>
-  </div></div>
-</section>
-<section class="block" style="padding-top:0;"><div class="wrap"><div class="section-head reveal">
-  <span class="eyebrow">When your phone connects to your car</span><h2>You get in. Your phone connects. Polarys checks in.</h2>
-  <p>Shadman’s spent over 45 minutes at a bar. He heads to his car, gets in, and his phone connects to Bluetooth. Polarys detects his saved car and puts those two things together: time at the bar, then a car connection. His activity risk score goes up, and Polarys encourages him to choose another way home—Uber, Lyft, public transit, or a friend. Before he drives off, he has other options right there.</p>
-  <p class="fine">That score doesn’t measure sobriety. Save your car in Settings; keep Polarys open or use a car Shortcut for detection.</p>
-</div></div></section>
-
-<section class="block" style="padding-top:0;">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">Your dashboard</span>
-      <h2>A quick look at your night.</h2>
-      <p>The home screen shows your current venue and time spent there. Low, Medium, and High reflect venue time and a qualifying saved-car connection. They don’t measure alcohol or tell you whether you’re safe to drive. Time spent traveling doesn’t add points.</p>
-    </div>
-    <div class="feature-grid reveal">
-      <div class="feature-card">
-        <div class="ico">⚠️</div>
-        <h4>Your own places</h4>
-        <p>Save a friend’s address and use the same departure reminders as bars.</p>
-      </div>
-      <div class="feature-card">
-        <div class="ico">🕐</div>
-        <h4>My options</h4>
-        <p>Open the Ride tab whenever you need it. You don’t have to wait for a notification.</p>
-      </div>
-      <div class="feature-card">
-        <div class="ico">📄</div>
-        <h4>Got a DUI?</h4>
-        <p>Find general next steps and links to help if you or a friend needs them.</p>
-      </div>
-      <div class="feature-card">
-        <div class="ico">🏠</div>
-        <h4>State laws</h4>
-        <p>Find state-specific information and links to official sources. It isn’t legal advice.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="block"><div class="wrap"><div class="section-head"><span class="eyebrow">Inside the app</span><h2>Set it up. See what’s going on.</h2></div><div class="screenshot-pair">
-<article><h3>Location and car reminders</h3><p>Save your car’s Bluetooth connection here. “Add a car Shortcut” walks you through opening Polarys when your phone connects to the car.</p><figure class="app-preview"><div class="phone-cut framed-phone"><img src="assets/settings.png" loading="lazy" alt="Settings screen with departure reminders and car Shortcut setup"></div></figure></article>
-<article><h3>Game days and plans around campus</h3><p>The Socials tab lists Iowa State games and other occasions, with a link to find a ride.</p><figure class="app-preview"><div class="phone-cut native-phone"><img src="assets/socials.png" loading="lazy" alt="Socials screen showing the Iowa State game schedule"></div></figure></article>
-</div></div></section><section class="block" id="about" style="padding-top:0;">
-  <div class="wrap about-grid reveal">
-    <div class="about-photo">
-      <div class="about-photo-frame">
-        <img src="assets/anay-portrait.png" alt="Anay Shah, creator of Polarys" width="1116" height="1410" loading="lazy">
-      </div>
-      <p class="about-caption"><b>Anay Shah</b> — Iowa State University</p>
-    </div>
-    <div class="about-copy">
-      <span class="eyebrow">About</span>
-      <h2>Hi, I'm Anay.</h2>
-      <p>I’m an Iowa State student building Polarys. The idea is pretty simple: getting home should be part of the plan, even when the rest of the night wasn’t planned at all.</p>
-      <p>I named it Polarys after the North Star. I liked the idea of something that helps you find your way home. I’m testing the iPhone app with friends and working through what’s useful on an actual night out.</p>
-    </div>
-  </div>
-</section>
-
-<section class="block" id="testing"><div class="wrap"><div class="cta-block reveal">
-  <span class="eyebrow" style="justify-content:center;">Now on TestFlight</span><h2>Try Polarys on your next night out.</h2>
-  <p>The Polarys beta is ready to try on iPhone. Get it through TestFlight and let me know how it works on your next night out.</p>
-  <div class="final-beta-action"><a href="https://testflight.apple.com/join/4NbjhRds" class="btn-primary">Join the TestFlight beta</a></div>
-  <p>Reminders depend on phone permissions, GPS, and iOS. They can arrive late or fail to arrive, so make a plan before you leave. Polarys can’t tell you whether you’re sober or safe to drive.</p>
-</div></div></section>
-
-<footer>
-  <div class="wrap footer-inner">
-    <div class="footer-note">Built by a student at Iowa State University. Not affiliated with or endorsed by ISU.</div>
-    <div class="footer-links">
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms of Service</a>
-      <a href="mailto:hello@polarys.app">Contact</a>
-    </div>
-  </div>
-</footer>
-
-<script>
-  const els = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, { threshold: 0.15 });
-    els.forEach(el => io.observe(el));
-  } else {
-    els.forEach(el => el.classList.add('in'));
-  }
-</script>
-
-</body>
+      <p>
+        Make a plan before you leave. Polarys reminders can be delayed or missed
+        and can’t tell you whether you’re safe to drive.
+      </p>
+      <p class="affiliation">
+        Built by a student at Iowa State University. Not affiliated with or
+        endorsed by ISU.
+      </p>
+    </footer>
+  </body>
 </html>
