@@ -29,7 +29,7 @@ const walkthrough = {
     label: "Your way home",
     heading: "Find a ride.\nText a friend.",
     description:
-      "Open Uber or Lyft with your saved home as the destination, check transit, or text a friend. You choose what works for you.",
+      "Tap the Polarys notification to go straight to your ride options. From there, open Uber or Lyft with your saved home as the destination, check transit, or text a friend.",
     image: "ride.png",
     alt: "The Ride screen with Uber, Lyft, transit, and Text a Friend",
     caption: "Ride options in Polarys",

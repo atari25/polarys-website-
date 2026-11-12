@@ -1257,3 +1257,66 @@ summary {
   background: var(--accent);
   color: #fff;
 }
+/* Show only the phones, without the rectangular screenshot canvas. */
+.ride-preview {
+  background: transparent;
+  padding: 0;
+}
+.phone-crop {
+  position: relative;
+  width: 230px;
+  max-width: 100%;
+  aspect-ratio: 0.48;
+  overflow: hidden;
+  border-radius: 20% / 9.6%;
+}
+.ride-preview .phone-crop {
+  width: 270px;
+}
+.demo-phone .phone-crop > img.phone-image,
+.ride-preview .phone-crop > img.phone-image {
+  position: absolute;
+  width: 114.3%;
+  max-width: none;
+  height: 118.8%;
+  left: -7.15%;
+  top: -8.6%;
+  object-fit: fill;
+  border: 0;
+  border-radius: 0;
+}
+.demo-phone.is-lock .phone-crop {
+  width: 205px;
+  aspect-ratio: 851 / 1849;
+  border-radius: 25px;
+}
+.demo-phone.is-lock .phone-crop > img.phone-image {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+.demo-phone .phone-crop > img.notification-icon {
+  display: none;
+  position: absolute;
+  left: 7.05%;
+  top: 56.57%;
+  width: 9.4%;
+  height: auto;
+  border: 0;
+  border-radius: 22%;
+}
+.demo-phone.is-lock .phone-crop > img.notification-icon {
+  display: block;
+}
+@media (max-width: 700px) {
+  .phone-crop {
+    width: 210px;
+  }
+  .ride-preview .phone-crop {
+    width: 245px;
+  }
+  .demo-phone.is-lock .phone-crop {
+    width: 188px;
+  }
+}
