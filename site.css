@@ -1317,7 +1317,7 @@ summary {
   background: #080808;
   isolation: isolate;
 }
-.phone-screen::after {
+.demo-phone.is-lock .phone-screen::after {
   content: "";
   position: absolute;
   top: 2.4%;
