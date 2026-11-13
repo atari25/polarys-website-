@@ -1,3 +1,12 @@
+// Keep the home address clean when an older link includes the filename.
+if (window.location.pathname === "/index.html") {
+  window.history.replaceState(
+    window.history.state,
+    "",
+    "/" + window.location.search + window.location.hash,
+  );
+}
+
 // Links to a setup question should reveal its answer as well as scroll to it.
 function openLinkedQuestion() {
   const question = document.getElementById(window.location.hash.slice(1));
