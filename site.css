@@ -1011,7 +1011,10 @@ h2 {
   grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: 50px;
-  background: #947056;
+  --ink: #191919;
+  --muted: #626262;
+  background: #ffffff;
+  color-scheme: light;
   border-radius: 22px;
   padding: 42px 75px;
   min-height: 570px;
@@ -1367,4 +1370,16 @@ summary {
   .demo-phone.is-lock .phone-crop {
     width: min(260px, 100%);
   }
+}
+
+/* Keep the three-step walkthrough light while the surrounding site stays dark. */
+.demo-copy h3 {
+  color: #243c36;
+}
+.demo-copy > .section-label {
+  color: #376458;
+}
+.demo-controls button[aria-pressed="true"] {
+  background: #ffffff;
+  color: #243c36;
 }
